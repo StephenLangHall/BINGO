@@ -1,21 +1,17 @@
 import random
 from colorama import Fore, Style, ansi
 
+
 INVERT=Fore.GREEN
 RESET=Style.RESET_ALL
 CLEAR=ansi.clear_screen() + ansi.Cursor.POS(1, 1)
 
-g=[
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-]
+g=[[0 for _ in range(5)] for _ in range(5)]
 
-used=[]
 
 # Fill in the board
+used=[]
+
 for y in range(0,5):
     for x in range(0,5):
         offset=x*15
@@ -28,8 +24,8 @@ g[2][2]-=1000
 BINGO=[]
 
 print(CLEAR)
-while (wincondition:=input("Which win condition? (all/horiz/vert/angle)  ").lower()) \
-        not in ["all","horiz","vert","angle"]:
+while (wincondition:=input("Which win condition? (any/horiz/vert/angle)  ").lower()) \
+        not in ["any","horiz","vert","angle"]:
             continue
 
 while len(BINGO)==0:
@@ -49,24 +45,25 @@ while len(BINGO)==0:
         for x in range(0,5):
             if g[y][x]==number:
                 g[y][x]-=1000
+    #g=[[cell-1000 if cell==number else cell for cell in row] for row in g]
 
     # Check for BINGO
     wins = []
-    if wincondition=="all" or wincondition=="angle":
-        wins.append([[0,0],[1,1],[2,2],[3,3],[4,4]])
-        wins.append([[0,4],[1,3],[2,2],[3,1],[4,0]])
-    if wincondition=="all" or wincondition=="horiz":
-        wins.append([[0,0],[0,1],[0,2],[0,3],[0,4]])
-        wins.append([[1,0],[1,1],[1,2],[1,3],[1,4]])
-        wins.append([[2,0],[2,1],[2,2],[2,3],[2,4]])
-        wins.append([[3,0],[3,1],[3,2],[3,3],[3,4]])
-        wins.append([[4,0],[4,1],[4,2],[4,3],[4,4]])
-    if wincondition=="all" or wincondition=="vert":
-        wins.append([[0,0],[1,0],[2,0],[3,0],[4,0]])
-        wins.append([[0,1],[1,1],[2,1],[3,1],[4,1]])
-        wins.append([[0,2],[1,2],[2,2],[3,2],[4,2]])
-        wins.append([[0,3],[1,3],[2,3],[3,3],[4,3]])
-        wins.append([[0,4],[1,4],[2,4],[3,4],[4,4]])
+    if wincondition=="any" or wincondition=="angle":
+        wins += [[[0,0],[1,1],[2,2],[3,3],[4,4]],
+                 [[0,4],[1,3],[2,2],[3,1],[4,0]]]
+    if wincondition=="any" or wincondition=="horiz":
+        wins += [[[0,0],[0,1],[0,2],[0,3],[0,4]],
+                 [[1,0],[1,1],[1,2],[1,3],[1,4]],
+                 [[2,0],[2,1],[2,2],[2,3],[2,4]],
+                 [[3,0],[3,1],[3,2],[3,3],[3,4]],
+                 [[4,0],[4,1],[4,2],[4,3],[4,4]]]
+    if wincondition=="any" or wincondition=="vert":
+        wins += [[[0,0],[1,0],[2,0],[3,0],[4,0]],
+                 [[0,1],[1,1],[2,1],[3,1],[4,1]],
+                 [[0,2],[1,2],[2,2],[3,2],[4,2]],
+                 [[0,3],[1,3],[2,3],[3,3],[4,3]],
+                 [[0,4],[1,4],[2,4],[3,4],[4,4]]]
 
     # Append wins to BINGO
     for win in wins:
