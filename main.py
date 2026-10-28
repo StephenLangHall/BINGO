@@ -1,4 +1,9 @@
 import random
+from colorama import Fore, Style, ansi
+
+INVERT=Fore.GREEN
+RESET=Style.RESET_ALL
+CLEAR=ansi.clear_screen() + ansi.Cursor.POS(1, 1)
 
 g=[
     [0,0,0,0,0],
@@ -22,14 +27,14 @@ g[2][2]-=1000
 
 BINGO=[]
 
-print("\033[2J\033[H")
+print(CLEAR)
 while (wincondition:=input("Which win condition? (all/horiz/vert/angle)  ").lower()) \
         not in ["all","horiz","vert","angle"]:
             continue
 
 while len(BINGO)==0:
     # Clear screen
-    print("\033[2J\033[H")
+    print(CLEAR)
 
     # Draw board
     for row in g:
@@ -71,7 +76,7 @@ while len(BINGO)==0:
 
 else:
     # Clear screen
-    print("\033[2J\033[H")
+    print(CLEAR)
 
     # Draw board
     for y,row in enumerate(g):
@@ -81,7 +86,7 @@ else:
                 ch=" **"
                 for win in BINGO:
                     if coord in win:
-                        ch=f" \033[7m{cell+1000:>2}\033[0m"
+                        ch=f" {INVERT}{cell+1000:>2}{RESET}"
                 print(ch,end='')
             else:
                 print(f"{cell:>3}",end='')
