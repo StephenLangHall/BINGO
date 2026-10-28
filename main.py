@@ -23,7 +23,7 @@ g[2][2]-=1000
 BINGO=[]
 
 print("\033[2J\033[H")
-while (wincondition:=input("Which win condition? (all/horiz/vert/angle)  ")) \
+while (wincondition:=input("Which win condition? (all/horiz/vert/angle)  ").lower()) \
         not in ["all","horiz","vert","angle"]:
             continue
 
@@ -37,7 +37,7 @@ while len(BINGO)==0:
     print()
 
     # Get user input
-    number=int(input("What number was called?  "))
+    number=int(input("(Only input the number, not the letter!)\nEx. input '21' not 'B-21'.\nWhat number was called?  "))
 
     # Set cell called by user
     for y in range(0,5):
@@ -88,5 +88,6 @@ else:
         print()
 
     print()
-    print(BINGO)
+    for win in BINGO:
+        print(win)
     print("BINGOOOOO!!!!")
